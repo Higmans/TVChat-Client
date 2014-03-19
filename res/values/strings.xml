@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TVChat</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_loading">Loading…</string>
+    <string name="error_empty_message">Message is empty! Write something</string>
+    <string name="send_button">Send Button</string>
+    <string name="channel_icon_cd">Channel Icon</string>
+    <string name = "menu_tag">Just tag</string>
+    <string name = "channel_tag">Just tag</string>    
+    <string name = "channel_tag_icon">Just tag</string>
+
+    <string-array name="channel_icons">
+        <item>@drawable/blank</item>
+        <item>@drawable/pershiy</item>
+        <item>@drawable/one_plus_one</item>
+        <item>@drawable/ictv</item>
+        <item>@drawable/stb</item>
+        <item>@drawable/noviy</item>
+        <item>@drawable/pyatiy</item>
+        <item>@drawable/inter</item>
+        <item>@drawable/ukraine</item>
+        <item>@drawable/kyiv</item>
+        <item>@drawable/tonis</item>
+        <item>@drawable/plusplus</item>
+        <item>@drawable/qtv</item>
+        <item>@drawable/otv</item>
+        <item>@drawable/enter_film</item>
+        <item>@drawable/rtr_planeta</item>
+        <item>@drawable/dva_plus_dva</item>
+        <item>@drawable/mega</item>
+        <item>@drawable/tvi</item>
+        <item>@drawable/kanal_dva_chetire</item>
+        <item>@drawable/ntn</item>
+        <item>@drawable/rada</item>
+        <item>@drawable/k_one</item>
+        <item>@drawable/k_two</item>
+        <item>@drawable/tv_tisacha</item>
+        <item>@drawable/auto_one</item>
+        <item>@drawable/tlc</item>
+        <item>@drawable/ntv_mir</item>
+        <item>@drawable/tet</item>
+        <item>@drawable/pervy_kanal</item>
+        <item>@drawable/pyervyy_dyelovoy</item>
+        <item>@drawable/m_one</item>
+    </string-array>
+    
+    <string-array name="channel_names">
+        <item>Default</item>
+        <item>Первый Национальный</item>
+        <item>1+1</item>
+        <item>ICTV</item>
+        <item>СТБ</item>
+        <item>Новый канал</item>
+        <item>5 канал</item>
+        <item>Интер</item>
+        <item>Україна</item>
+        <item>ТРК Киев</item>
+        <item>Тонис</item>
+        <item>ПЛЮСПЛЮС</item>
+        <item>QTV</item>
+        <item>ОТV</item>
+        <item>Энтер-фильм</item>
+        <item>РТР-Планета</item>
+        <item>2+2</item>
+        <item>Мега</item>
+        <item>ТВі</item>
+        <item>Канал 24</item>
+        <item>НТН</item>
+        <item>Парламентский канал РАДА</item>
+        <item>К1</item>
+        <item>К2</item>
+        <item>ТV1000</item>
+        <item>Первый автомобильный</item>
+        <item>TLC</item>
+        <item>НТВ Мир</item>
+        <item>ТЕТ</item>
+        <item>Первый канал Всемирная сеть</item>
+        <item>Первый Деловой</item>
+        <item>М1</item>
+    </string-array>
+
+</resources>
