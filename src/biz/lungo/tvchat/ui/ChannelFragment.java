@@ -75,7 +75,7 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 		
 		RelativeLayout rlActionBar = (RelativeLayout) RelativeLayout.inflate(getActivity(), R.layout.action_bar_channel, null);
 		tvProgramActionBar = (TextView) rlActionBar.findViewById(R.id.textViewProgram);
-		ActionBar actionBar = ((BaseActivity)getActivity()).getActionBar();
+		ActionBar actionBar = (getActivity()).getActionBar();
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | 
 									ActionBar.DISPLAY_HOME_AS_UP | 
 									ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -169,17 +169,16 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		final JSONObject messageJOFinal = messageJO;
-		Request mRequest = new Request();
+        Request mRequest = new Request();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("mode", "chat"));
 		params.add(new BasicNameValuePair("action", "put"));
-		params.add(new BasicNameValuePair("message", messageJOFinal.toString()));
+		params.add(new BasicNameValuePair("message", messageJO.toString()));
 		mRequest.execute(params);
 		JSONObject jsonSingleUpdate = new JSONObject();
 		try {
-			jsonSingleUpdate.put(messageJOFinal.getString("timestamp"),
-					messageJOFinal);
+			jsonSingleUpdate.put(messageJO.getString("timestamp"),
+                    messageJO);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -198,17 +197,16 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 	private String validateMessage(String message) {
 		//no spaces at the beginning of a message
 		//no empty message full of spaces
-		String output = message;
-		int spacesCount = 0;
-		for (int i = 0; i < output.length(); i++){
-			if (' ' == output.charAt(i)){
+        int spacesCount = 0;
+		for (int i = 0; i < message.length(); i++){
+			if (' ' == message.charAt(i)){
 				spacesCount++;
 			}
 			else{
 				break;
 			}
 		}
-		return output.substring(spacesCount);
+		return message.substring(spacesCount);
 	}
 	
 	private void updateTimeStamp() {
@@ -265,6 +263,7 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 	        try {
 	            messageData = dataJson.get(key);
 	        } catch (JSONException e) {
+                e.printStackTrace();
 	        }
 	        JSONObject messageJson = null;
 	        try {

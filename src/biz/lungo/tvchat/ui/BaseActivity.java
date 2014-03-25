@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.app.ListFragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import biz.lungo.tvchat.R;
@@ -12,7 +11,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BaseActivity extends SlidingFragmentActivity {
-	protected ListFragment mFrag;
     public static Context context;
     public static boolean networkOK;
     public static boolean serverOK;
@@ -34,6 +32,7 @@ public class BaseActivity extends SlidingFragmentActivity {
         sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
         sm.setFadeDegree(0.35f);
         sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        //noinspection ConstantConditions
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
     
@@ -64,17 +63,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 	private boolean checkConnection() {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo ni = cm.getActiveNetworkInfo();
-		if (ni == null) {
-			return false;
-		}
-		if (!ni.isConnected()) {
-			return false;
-		}
-		if (!ni.isAvailable()) {
-			return false;
-		}
-		return true;
-	}
+        return ni != null && ni.isConnected() && ni.isAvailable();
+    }
 
 
 	private boolean checkNetwork() {

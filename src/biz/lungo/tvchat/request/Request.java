@@ -41,20 +41,23 @@ public class Request {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}				
-		HttpEntity entity = response.getEntity();
-		String responseGetStr = "";
+		}
+        HttpEntity entity = null;
+        if (response != null) {
+            entity = response.getEntity();
+        }
+        String responseGetStr = "";
 		if (entity != null) {
 
-			InputStream instream = null;
+			InputStream inStream = null;
 			try {
-				instream = entity.getContent();
+				inStream = entity.getContent();
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			responseGetStr = convertStreamToString(instream);
+			responseGetStr = convertStreamToString(inStream);
 		}
 		Response mResponse = new Response();
 		mResponse.setData(responseGetStr);
@@ -64,10 +67,10 @@ public class Request {
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 	    StringBuilder sb = new StringBuilder();
 
-	    String line = null;
+	    String line;
 	    try {
 	        while ((line = reader.readLine()) != null) {
-	            sb.append(line + "\n");
+	            sb.append(line).append("\n");
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
