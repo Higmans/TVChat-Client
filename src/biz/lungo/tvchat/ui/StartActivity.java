@@ -8,16 +8,16 @@ import biz.lungo.tvchat.ui.menu.MenuFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class StartActivity extends BaseActivity {
-	
-	private Fragment mContent;
-	
+
+    private Fragment mContent;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null)
             mContent = getFragmentManager().getFragment(savedInstanceState, "mContent");
         if (mContent == null)
             mContent = new WelcomeFragment();
-                
+
         setContentView(R.layout.content_frame);
         getFragmentManager()
                 .beginTransaction()
@@ -26,12 +26,12 @@ public class StartActivity extends BaseActivity {
 
         setBehindContentView(R.layout.menu_frame);
         getFragmentManager().beginTransaction()
-						        	.replace(R.id.menu_frame, new MenuFragment())
-						        	.commit();
+                .replace(R.id.menu_frame, new MenuFragment())
+                .commit();
 
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
     }
-    
+
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         getFragmentManager().putFragment(outState, "mContent", mContent);

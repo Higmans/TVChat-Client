@@ -17,14 +17,14 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public BaseActivity() {
     }
-    
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-    	networkOK = checkNetwork();
-    	serverOK = checkConnection();
+        networkOK = checkNetwork();
+        serverOK = checkConnection();
         setTitle(getResources().getString(R.string.app_name));
         SlidingMenu sm = getSlidingMenu();
         sm.setShadowWidthRes(R.dimen.shadow_width);
@@ -35,11 +35,11 @@ public class BaseActivity extends SlidingFragmentActivity {
         //noinspection ConstantConditions
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	menu.add("Home");
-    	return super.onCreateOptionsMenu(menu);
+        menu.add("Home");
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -51,24 +51,24 @@ public class BaseActivity extends SlidingFragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     @Override
     protected void onResume() {
-    	networkOK = checkNetwork();
-    	serverOK = checkConnection();
-    	super.onResume();
+        networkOK = checkNetwork();
+        serverOK = checkConnection();
+        super.onResume();
     }
 
 
-	private boolean checkConnection() {
-		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getActiveNetworkInfo();
+    private boolean checkConnection() {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnected() && ni.isAvailable();
     }
 
 
-	private boolean checkNetwork() {
-		//TODO
-		return true;		
-	}
+    private boolean checkNetwork() {
+        //TODO
+        return true;
+    }
 }

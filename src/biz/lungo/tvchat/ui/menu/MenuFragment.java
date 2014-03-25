@@ -27,16 +27,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MenuFragment extends ListFragment{
-	protected static final int UPDATE_MENU = 0;
-	CountDownLatch latch = new CountDownLatch(1);
-	public static String channels[];
-	static Handler menuHandler;
-	static ArrayAdapter<String> channelsAdapter;
-	static MenuAdapter menuAdapter;
-	static String visibleChannels[];
-	static TypedArray channelIcons;
-	
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected static final int UPDATE_MENU = 0;
+    CountDownLatch latch = new CountDownLatch(1);
+    public static String channels[];
+    static Handler menuHandler;
+    static ArrayAdapter<String> channelsAdapter;
+    static MenuAdapter menuAdapter;
+    static String visibleChannels[];
+    static TypedArray channelIcons;
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.list, null);
     }
 
@@ -44,80 +44,80 @@ public class MenuFragment extends ListFragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (BaseActivity.networkOK && BaseActivity.serverOK){
-    		getChannels();
+            getChannels();
         }
         else{
-        	showConnectionErrorDialog();
+            showConnectionErrorDialog();
         }
         channelsAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, 
-                android.R.id.text1, 
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
                 new ArrayList<String>(Arrays.asList(getResources().getString(R.string.menu_loading))));
         setListAdapter(channelsAdapter);
         menuHandler = new Handler(){
-        	@Override
-        	public void handleMessage(Message msg) {
-        		switch(msg.what){
-        		case UPDATE_MENU:
-        			visibleChannels = BaseActivity.context.getResources().getStringArray(R.array.channel_names);
-        			channelIcons = BaseActivity.context.getResources().obtainTypedArray(R.array.channel_icons);
-        			channels = ((String[])msg.obj);
-        			ArrayList<ChannelsMenuItem> menuList = new ArrayList<ChannelsMenuItem>();
-        			for (int i = 0; i < channels.length; i++){
-        				ChannelsMenuItem menuItem = new ChannelsMenuItem(i, channels[i]);
-        				if (menuItem.visible){
-            				menuList.add(menuItem);
-        				}
-        			}
-        			menuAdapter = new MenuAdapter(getActivity(), R.layout.menu_channel_item, menuList);
-        			setListAdapter(menuAdapter);
-        			break;
-        		}
-        	}
+            @Override
+            public void handleMessage(Message msg) {
+                switch(msg.what){
+                    case UPDATE_MENU:
+                        visibleChannels = BaseActivity.context.getResources().getStringArray(R.array.channel_names);
+                        channelIcons = BaseActivity.context.getResources().obtainTypedArray(R.array.channel_icons);
+                        channels = ((String[])msg.obj);
+                        ArrayList<ChannelsMenuItem> menuList = new ArrayList<ChannelsMenuItem>();
+                        for (int i = 0; i < channels.length; i++){
+                            ChannelsMenuItem menuItem = new ChannelsMenuItem(i, channels[i]);
+                            if (menuItem.visible){
+                                menuList.add(menuItem);
+                            }
+                        }
+                        menuAdapter = new MenuAdapter(getActivity(), R.layout.menu_channel_item, menuList);
+                        setListAdapter(menuAdapter);
+                        break;
+                }
+            }
         };
     }
 
-	private void getChannels(){ 
-		new Thread(new Runnable() {			
-			@Override
-			public void run() {				
-				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("mode", "channels"));
-				params.add(new BasicNameValuePair("test_client", "true"));
-				Request mRequest = new Request();
-				ChannelsResponse mResponse = new ChannelsResponse(mRequest.execute(params));
-				Message msg = new Message();
-				msg.what = UPDATE_MENU;
-				msg.obj = mResponse.getChannels();
-				menuHandler.sendMessage(msg);
-			}
-		}).start();
-	}
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		Fragment newFragment = new ChannelFragment();
-		Bundle args = new Bundle();
-		args.putInt("channelIndex", (Integer)v.getTag(R.string.channel_tag));
-		args.putInt("iconResId", (Integer)v.getTag(R.string.channel_tag_icon));
-		newFragment.setArguments(args);
-		if (newFragment != null){
-			switchFragment(newFragment);
-		}
-	}
+    private void getChannels(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("mode", "channels"));
+                params.add(new BasicNameValuePair("test_client", "true"));
+                Request mRequest = new Request();
+                ChannelsResponse mResponse = new ChannelsResponse(mRequest.execute(params));
+                Message msg = new Message();
+                msg.what = UPDATE_MENU;
+                msg.obj = mResponse.getChannels();
+                menuHandler.sendMessage(msg);
+            }
+        }).start();
+    }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Fragment newFragment = new ChannelFragment();
+        Bundle args = new Bundle();
+        args.putInt("channelIndex", (Integer)v.getTag(R.string.channel_tag));
+        args.putInt("iconResId", (Integer)v.getTag(R.string.channel_tag_icon));
+        newFragment.setArguments(args);
+        if (newFragment != null){
+            switchFragment(newFragment);
+        }
+    }
 
-	private void switchFragment(Fragment newFragment) {
-		if (getActivity() == null)
+    private void switchFragment(Fragment newFragment) {
+        if (getActivity() == null)
             return;
 
         if (getActivity() instanceof StartActivity) {
             StartActivity fca = (StartActivity) getActivity();
             fca.switchContent(newFragment);
-        }		
-	}
-	
-	private void showConnectionErrorDialog() {
-		// TODO	
-		Toast.makeText(getActivity(), "Conn error", Toast.LENGTH_LONG).show();
-	}
+        }
+    }
+
+    private void showConnectionErrorDialog() {
+        // TODO
+        Toast.makeText(getActivity(), "Conn error", Toast.LENGTH_LONG).show();
+    }
 
 }
