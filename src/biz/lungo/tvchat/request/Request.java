@@ -17,7 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import biz.lungo.tvchat.response.Response;
 
 public class Request {
-	public static final String SERVER_URL = "http://lungo.mine.nu:8085/TestServer/testing";
+	public static final String SERVER_URL = "http://188.231.137.161:8085/TestServer/testing";
 	public static final String CHARSET = "UTF-8";
 	public static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
 

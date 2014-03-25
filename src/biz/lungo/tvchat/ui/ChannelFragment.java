@@ -60,7 +60,7 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 	ChatUpdater chatUpdater;
 	TypedArray channelIconsArray;
 	
-	public ChannelFragment(){		
+	public ChannelFragment(){
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -301,15 +301,6 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 		    last = sortedTimestamps.get(sortedTimestamps.size() - 1);
 		    scrollDown();
 		}
-		else {
-			//if there are no new messages
-			executorMain.submit(new Runnable() {				
-				@Override
-				public void run() {
-					
-				}
-			});
-		}
 	}
 	
 	private void scrollDown() {
@@ -321,7 +312,6 @@ public class ChannelFragment extends Fragment implements OnClickListener, OnTouc
 			}
 		});
 	}
-	
 	public static void showToast(String string) {
 		Toast.makeText(activity, string, Toast.LENGTH_SHORT).show();
 	}
